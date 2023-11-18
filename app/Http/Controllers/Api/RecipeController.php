@@ -12,13 +12,14 @@ class RecipeController extends Controller
     public function index()
     {
 
-        return Recipe::all();
+        //with porque es una consulta de 0
+        return Recipe::with('category','tags','user')->get();
     }
 
     public function show(Recipe $recipe)
     {
-
-        return $recipe;
+        //load porque ya existe, lo tengo en $recipe
+        return $recipe->load('category','tags','user');
 
     }
 }

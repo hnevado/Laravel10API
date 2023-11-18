@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     use HasFactory;
+
+    public function recipes()
+    {
+        //belongstomany -> muchos a muchos
+        return $this->belongsToMany(Recipe::class);
+
+    }
 }
