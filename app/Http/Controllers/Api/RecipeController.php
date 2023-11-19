@@ -9,6 +9,8 @@ use App\Models\Recipe;
 
 use App\Http\Resources\RecipeResource;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class RecipeController extends Controller
 {
     public function index()
@@ -18,8 +20,16 @@ class RecipeController extends Controller
         return RecipeResource::collection(Recipe::with('category','tags','user')->get());
     }
 
-    public function store() 
+    public function store(Request $request) 
     {
+ 
+        $recipe = Recipe::create($request->all());
+
+        if ($tags = json_decode($request->tags)) {
+            $recipe->tags()->attach($tags);
+        }
+
+        return response()->json(new RecipeResource($recipe), Response::HTTP_CREATED);
 
     }
 
@@ -32,13 +42,27 @@ class RecipeController extends Controller
 
     
 
-    public function update()
+    public function update(Request $request, Recipe $recipe)
     {
+
+        $recipe->update($request->all());
+
+        
+        if ($tags = json_decode($request->tags)) {
+            $recipe->tags()->sync($tags); //Sincroniza las etiquetas. Elimina las viejas y pon las nuevas
+        }
+
+
+        return response()->json(new RecipeResource($recipe), Response::HTTP_OK);
 
     }
 
-    public function delete()
+    public function destroy(Request $request, Recipe $recipe)
     {
+
+        $recipe->delete();
+
+        return response()->json(null,Response::HTTP_NO_CONTENT);
 
     }
 
