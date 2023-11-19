@@ -4,6 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/*
+php artisan make:request StoreRecipeRequest
+*/
+
 class StoreRecipeRequest extends FormRequest
 {
     /**
