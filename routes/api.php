@@ -23,7 +23,7 @@ php artisan telescope:install
 
 //Ruta de inicio de sesión para la creación de token
 
-Route::get('login',[LoginController::class,'store']);
+Route::post('login',[LoginController::class,'store']);
 
 //composer require laravel/sanctum
 //El token se puede generar por terminal con tinker: php artisan tinker
