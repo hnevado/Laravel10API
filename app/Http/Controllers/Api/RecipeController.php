@@ -45,6 +45,8 @@ class RecipeController extends Controller
     public function update(UpdateRecipeRequest $request, Recipe $recipe)
     {
 
+        $this->authorize('update', $recipe);
+
         $recipe->update($request->all());
 
         
@@ -59,6 +61,7 @@ class RecipeController extends Controller
 
     public function destroy(Request $request, Recipe $recipe)
     {
+        $this->authorize('delete', $recipe);
 
         $recipe->delete();
 
