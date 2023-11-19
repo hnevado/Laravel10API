@@ -31,7 +31,7 @@ class RecipeController extends Controller
 
         $recipe->image = $request->file('image')->store('recipes','public');
         $recipe->save();
-        
+
         return response()->json(new RecipeResource($recipe), Response::HTTP_CREATED);
 
     }
@@ -57,7 +57,12 @@ class RecipeController extends Controller
             $recipe->tags()->sync($tags); //Sincroniza las etiquetas. Elimina las viejas y pon las nuevas
         }
 
-
+        if ($request->file('image'))
+        {
+            $recipe->image = $request->file('image')->store('recipes','public');
+            $recipe->save();
+        }
+        
         return response()->json(new RecipeResource($recipe), Response::HTTP_OK);
 
     }
