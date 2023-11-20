@@ -11,7 +11,7 @@ use App\Http\Controllers\Api\V1\RecipeController;
 */
 
 
-Route::prefix('V1')->group(function () {
+Route::prefix('v1')->group(function () {
 
     Route::get('categories', [CategoryController::class, 'index']);
     Route::get('categories/{category}', [CategoryController::class, 'show']);
